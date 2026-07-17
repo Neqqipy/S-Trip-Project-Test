@@ -239,6 +239,7 @@ Nếu bạn phát hiện lỗi, vui lòng:
 - Bổ sung bản đồ 3D Việt Nam tương tác (`ExploreVietnam`) tại trang chủ.
 - Cải thiện UI thẻ thông tin tỉnh thành với thiết kế Glassmorphism hiện đại.
 - Cập nhật và sửa lỗi màu sắc văn bản (Text Colors) khi ở chế độ xem sáng (Hero Mode) giúp người dùng dễ đọc hơn.
+- Tích hợp **GitHub Actions Workflow** tự động ping API hàng ngày, giúp giữ Database Supabase (gói Free) luôn hoạt động (Active) không bị pause.
 
 **Tháng 6/2026**
 - Cải thiện UI/UX phần hiển thị thẻ phương tiện và logo hãng hàng không (đặc biệt Vietnam Airlines).
