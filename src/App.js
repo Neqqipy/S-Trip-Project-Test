@@ -407,6 +407,7 @@ function AppContent({ isDarkProp, setIsDarkProp, userProp, setUserProp }) {
         realTours: result.tours || [],
         realFoods: result.foods || [],
         transport: result.transport || null,
+        itinerary: result.itinerary || [],
       };
       setSearchData(fullPlan);
       localStorage.setItem('s_trip_last_search', JSON.stringify(fullPlan));

@@ -9,6 +9,10 @@ import { enrichPlacesWithCoords, getProvinceBounds, inBounds } from '../services
 import { BASE_URL } from '../config';
 const proxyImg = (url) => {
   if (!url) return null;
+  // Tránh double proxy nếu backend đã proxy sẵn
+  if (url.includes('/api/proxy-image')) {
+    return url.startsWith('http') ? url : BASE_URL + url;
+  }
   if (url.includes('placehold.co') || url.includes('placeholder')) return url;
   const googleDomains = ['googleusercontent.com','ggpht.com','googleapis.com','googleapi'];
   if (googleDomains.some(d => url.includes(d))) {
@@ -39,30 +43,35 @@ const SESSION_META = [
 function buildDayPlaces(data) {
   const numDays = parseInt(data.days?.toString().split(' ')[0]) || 3;
 
-  // ── Ưu tiên đọc daily_slots từ backend (đã chia sẵn theo ngày/buổi) ──
-  if (data.daily_slots?.length > 0) {
-    return data.daily_slots.slice(0, numDays).map((daySlot) =>
-      SESSION_META.flatMap((s) => {
-        const slotKey = s.key; // 'morning' | 'afternoon' | 'evening'
-        const slot    = daySlot[slotKey] || {};
-        const tour    = slot.tour || {};
-        const food    = slot.food || {};
-        return [
-          {
-            session: s.label, sessionColor: s.color, sessionIcon: s.icon, type: 'food',
-            name: food.name || '', thumbnail: food.thumbnail || null,
-            lat: food.lat || food.latitude || null,
-            lng: food.lng || food.longitude || null,
-          },
-          {
-            session: s.label, sessionColor: s.color, sessionIcon: s.icon, type: 'tour',
-            name: tour.name || '', thumbnail: tour.thumbnail || null,
-            lat: tour.lat || tour.latitude || null,
-            lng: tour.lng || tour.longitude || null,
-          },
-        ];
-      })
-    );
+  // ── Ưu tiên đọc itinerary từ backend (đã chia sẵn theo ngày/buổi) ──
+  if (data.itinerary?.length > 0) {
+    const SLOT_MAP = {
+      '🌅 Buổi sáng': SESSION_META[0],
+      '☀️ Buổi chiều': SESSION_META[1],
+      '🌙 Buổi tối': SESSION_META[2],
+    };
+    
+    return data.itinerary.slice(0, numDays).map(dayObj => {
+      const places = [];
+      (dayObj.slots || []).forEach(slotObj => {
+        const sMeta = SLOT_MAP[slotObj.slot];
+        if (!sMeta) return;
+        
+        (slotObj.items || []).forEach(item => {
+          places.push({
+            session: sMeta.label,
+            sessionColor: sMeta.color,
+            sessionIcon: sMeta.icon,
+            type: item.item_type || 'tour',
+            name: item.name || '',
+            thumbnail: item.thumbnail || null,
+            lat: item.lat || item.latitude || null,
+            lng: item.lng || item.longitude || null,
+          });
+        });
+      });
+      return places;
+    });
   }
 
   // ── Fallback: phân bổ từ realTours/realFoods theo thứ tự tuyến tính ──
