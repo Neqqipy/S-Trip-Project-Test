@@ -1,0 +1,36 @@
+name: Keep Supabase Alive
+
+on:
+  schedule:
+    # Chạy tự động vào lúc 00:00 (UTC) mỗi ngày
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Cho phép bạn bấm nút chạy thủ công (Run workflow) từ tab Actions
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase Database
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          echo "Bắt đầu gọi API tới Supabase..."
+          
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_KEY" ]; then
+            echo "Lỗi: Chưa cài đặt SUPABASE_URL hoặc SUPABASE_ANON_KEY trong GitHub Secrets."
+            exit 1
+          fi
+
+          # Gọi trực tiếp vào REST API root của Supabase. 
+          # Việc request file OpenAPI/Swagger này đủ để được tính là 1 request API và giữ Project active.
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X GET "${SUPABASE_URL}/rest/v1/" \
+            -H "apikey: ${SUPABASE_KEY}" \
+            -H "Authorization: Bearer ${SUPABASE_KEY}")
+          
+          if [ "$HTTP_STATUS" -eq 200 ]; then
+            echo "Ping Supabase thành công! HTTP Status: $HTTP_STATUS"
+          else
+            echo "Ping Supabase thất bại! HTTP Status: $HTTP_STATUS"
+            exit 1
+          fi
