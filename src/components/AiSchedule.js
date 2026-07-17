@@ -1366,7 +1366,7 @@ const PlaceCard = ({ type, data, sessionLabel, locationName, setMapQuery, onShow
   const [fallbackImg, setFallbackImg] = useState(null);
 
   const isHotel  = type === 'Khách sạn';
-  const isFlight = type === 'Chuyến bay';
+  const isFlight = type?.includes('Chuyến bay');
   const icon      = isHotel ? faHotel : (isFlight ? faPlane : (type === 'Địa điểm ăn uống' ? faUtensils : faMapLocationDot));
   const mainColor = isHotel ? '#3b82f6' : (isFlight ? '#10b981' : (type === 'Điểm tham quan' ? '#8b5cf6' : '#f97316'));
   const sessionIcon = sessionLabel === 'Sáng' ? faSun : (sessionLabel === 'Chiều' ? faCloudSun : faMoon);
@@ -1476,7 +1476,7 @@ const PlaceCard = ({ type, data, sessionLabel, locationName, setMapQuery, onShow
 
       {/* Thêm điều kiện isFlight ? 'white' : ... để ép nền trắng cho logo hãng bay */}
       <div className="ais-place-card-img" style={{ width: '120px', height: '120px', flexShrink: 0, borderRadius: '14px', overflow: 'hidden', backgroundColor: (displayImg && typeof displayImg === 'string' && displayImg.includes('vna.png')) ? '#006072' : (isDark ? '#111827' : '#f8fafc'), display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        {(data.thumbnail || fallbackImg) && displayImg ? (
+        {(isFlight || data.thumbnail || fallbackImg) && displayImg ? (
           <img src={displayImg} alt="thumb" style={{ width: '100%', height: '100%', objectFit: 'cover', transform: isHovered ? 'scale(1.09)' : 'scale(1)', transition: 'transform 0.4s ease', display: 'block' }} onError={imgError ? (e => { e.target.onerror = null; e.target.src = 'https://placehold.co/120x120?text=S-Trip'; }) : handleImgError} />
         ) : (
           <FontAwesomeIcon icon={sessionLabel ? sessionIcon : icon} style={{ fontSize: '28px', color: mainColor }} />
