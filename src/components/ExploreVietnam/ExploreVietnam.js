@@ -42,23 +42,23 @@ export default function ExploreVietnam({ isEmbedded, mode = 'full' }) {
       )}
 
       {/* Info Panel */}
-      <div className={`explore-info-panel ${selectedProvince ? 'visible' : ''}`} style={isHero ? { left: 'auto', right: '20px', top: '15%', bottom: 'auto', width: '320px', transform: 'none', background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(20px)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.2)' } : {}}>
+      <div className={`explore-info-panel ${selectedProvince ? 'visible' : ''}`} style={isHero ? { left: 'auto', right: '20px', top: '15%', bottom: 'auto', width: '320px', transform: 'none', background: 'rgba(255, 255, 255, 0.85)', backdropFilter: 'blur(20px)', borderRadius: '16px', border: '1px solid rgba(0, 0, 0, 0.1)', boxShadow: '0 10px 40px rgba(0, 0, 0, 0.08)' } : {}}>
         {selectedProvince && (
           <>
-            <h2 className="info-province-name" style={isHero ? { fontSize: '20px' } : {}}>{selectedProvince.displayName || selectedProvince.name}</h2>
+            <h2 className="info-province-name" style={isHero ? { fontSize: '20px', color: '#0284c7', textShadow: 'none' } : {}}>{selectedProvince.displayName || selectedProvince.name}</h2>
             
-            <div className="info-fact">
-              <div className="info-fact-title" style={isHero ? { fontSize: '12px' } : {}}>💡 Giới thiệu ngắn</div>
-              <div className="info-fact-content" style={isHero ? { fontSize: '12px' } : {}}>{selectedProvince.fact}</div>
+            <div className="info-fact" style={isHero ? { background: 'rgba(0, 0, 0, 0.03)', borderLeftColor: '#d97706' } : {}}>
+              <div className="info-fact-title" style={isHero ? { fontSize: '12px', color: '#d97706' } : {}}>💡 Giới thiệu ngắn</div>
+              <div className="info-fact-content" style={isHero ? { fontSize: '12px', color: '#475569' } : {}}>{selectedProvince.fact}</div>
             </div>
 
-            <div className="info-stat" style={{ marginTop: '10px' }}>
-              <span className="info-stat-label" style={isHero ? { fontSize: '12px' } : {}}>👥 Dân số</span>
-              <span className="info-stat-value" style={isHero ? { fontSize: '12px' } : {}}>{selectedProvince.population}</span>
+            <div className="info-stat" style={isHero ? { marginTop: '10px', borderBottom: '1px solid rgba(0, 0, 0, 0.05)' } : { marginTop: '10px' }}>
+              <span className="info-stat-label" style={isHero ? { fontSize: '12px', color: '#64748b' } : {}}>👥 Dân số</span>
+              <span className="info-stat-value" style={isHero ? { fontSize: '12px', color: '#0f172a' } : {}}>{selectedProvince.population}</span>
             </div>
-            <div className="info-stat">
-              <span className="info-stat-label" style={isHero ? { fontSize: '12px' } : {}}>📏 Diện tích</span>
-              <span className="info-stat-value" style={isHero ? { fontSize: '12px' } : {}}>{selectedProvince.area}</span>
+            <div className="info-stat" style={isHero ? { borderBottom: 'none' } : {}}>
+              <span className="info-stat-label" style={isHero ? { fontSize: '12px', color: '#64748b' } : {}}>📏 Diện tích</span>
+              <span className="info-stat-value" style={isHero ? { fontSize: '12px', color: '#0f172a' } : {}}>{selectedProvince.area}</span>
             </div>
           </>
         )}

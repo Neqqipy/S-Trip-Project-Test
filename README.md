@@ -28,7 +28,7 @@
 
 ### 1. Clone Repository
 ```bash
-git clone https://github.com/your-repo/s-trip.git
+git clone https://github.com/Neqqipy/S-Trip-Frontend.git
 cd s-trip
 ```
 
@@ -136,6 +136,12 @@ src/
 - Dấu vị trí cho từng hoạt động, nhà hàng
 - Tính toán tuyến đường giữa các điểm
 
+#### **ExploreVietnam.js** - Bản Đồ 3D Tương Tác Việt Nam
+- Mô hình 3D bản đồ Việt Nam sử dụng `@react-three/fiber` và `@react-three/drei`.
+- Cho phép người dùng tương tác xoay, zoom, chọn từng tỉnh thành.
+- Hiển thị thông tin tổng quan, diện tích, dân số và mô tả ngắn bằng glassmorphism UI.
+- Hỗ trợ Hero mode (chế độ sáng) và Dark mode.
+
 #### **ResetPassword.js** - Đặt Lại Mật Khẩu
 - Xử lý reset password qua email
 - Xác thực token từ URL: `/#/reset-password?token=xxx`
@@ -227,8 +233,14 @@ Nếu bạn phát hiện lỗi, vui lòng:
 3. Nêu phiên bản browser và OS
 4. Thêm screenshot nếu có liên quan
 
-## 🆕 Cập Nhật Mới (Tháng 6/2026)
+## 🆕 Cập Nhật Mới
 
+**Tháng 7/2026**
+- Bổ sung bản đồ 3D Việt Nam tương tác (`ExploreVietnam`) tại trang chủ.
+- Cải thiện UI thẻ thông tin tỉnh thành với thiết kế Glassmorphism hiện đại.
+- Cập nhật và sửa lỗi màu sắc văn bản (Text Colors) khi ở chế độ xem sáng (Hero Mode) giúp người dùng dễ đọc hơn.
+
+**Tháng 6/2026**
 - Cải thiện UI/UX phần hiển thị thẻ phương tiện và logo hãng hàng không (đặc biệt Vietnam Airlines).
 - Khắc phục các lỗi liên quan đến hiển thị và sai lệch ngày tháng trong lịch trình.
 - Đồng bộ thanh điều hướng (Navbar) và chân trang (Footer), tối ưu luồng trải nghiệm người dùng (đổi tên "Trang chủ" thành "Tìm kiếm", cuộn trang thông minh).
@@ -246,7 +258,7 @@ Cảm ơn tất cả những người đóng góp và người dùng của S-Tri
 
 <div align="center">
   
-**[Trang Web](#) • [Issues](https://github.com/your-repo/s-trip/issues) • [Discussions](https://github.com/your-repo/s-trip/discussions)**
+**[Trang Web](#) • [Issues](https://github.com/Neqqipy/S-Trip-Frontend/issues) • [Discussions](https://github.com/Neqqipy/S-Trip-Frontend/discussions)**
 
 Được phát triển với ❤️ tại Việt Nam
 </div>
